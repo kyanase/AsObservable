@@ -1,5 +1,4 @@
 ﻿using System;
-using JetBrains.Annotations;
 using NUnit.Framework;
 
 namespace AsObservable.Tests
@@ -9,15 +8,15 @@ namespace AsObservable.Tests
         [Test]
         public void Generate()
         {
-            var types = new[] {typeof(SampleClass)};
+            var types = new[] {typeof(TypeCollectionToObservableGeneratorSampleClass)};
             var actual = TypeCollectionToObservableGenerator.Generate(types);
             Console.WriteLine(actual);
             var expected =
                 @"namespace Observables.AsObservable.Tests
 {
-    public static class SampleClassObservableExtensions
+    public static class TypeCollectionToObservableGeneratorSampleClassObservableExtensions
     {
-        public static IObservable<EventPattern<EventArgs>> SampleEventAsObservable(this SampleClass @this)
+        public static IObservable<EventPattern<EventArgs>> SampleEventAsObservable(this TypeCollectionToObservableGeneratorSampleClass @this)
         {
             return Observable.FromEventPattern<EventHandler, EventArgs>(
                 h => @this.SampleEvent += h, 
@@ -30,12 +29,6 @@ namespace AsObservable.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [UsedImplicitly(ImplicitUseTargetFlags.Members)]
-#pragma warning disable 67
-        private class SampleClass
-        {
-            public event EventHandler SampleEvent;
-        }
 #pragma warning restore 67
 
         [Test]

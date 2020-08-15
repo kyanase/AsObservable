@@ -45,15 +45,27 @@ namespace AsObservable
             return parameterTypeName;
         }
 
-        private static string ToGenericAwareTypeName(Type eventInfoEventHandlerType)
+        private static string ToGenericAwareTypeName(Type type)
         {
-            var genericArguments = eventInfoEventHandlerType.GetGenericArguments();
-            if (genericArguments.Length == 0)
+            if (type.IsNested)
             {
-                return ToName(eventInfoEventHandlerType);
+                var declaringTypeName = ToGenericAwareTypeName(type.DeclaringType);
+                var singleTypeName = ToGenericAwareTypeNameForSingleType(type);
+                return string.Join(".", declaringTypeName, singleTypeName);
             }
 
-            var eventTypeName = Regex.Replace(eventInfoEventHandlerType.Name, "`.*$", "");
+            return ToGenericAwareTypeNameForSingleType(type);
+        }
+
+        private static string ToGenericAwareTypeNameForSingleType(Type type)
+        {
+            var genericArguments = type.GetGenericArguments();
+            if (genericArguments.Length == 0)
+            {
+                return ToName(type);
+            }
+
+            var eventTypeName = Regex.Replace(type.Name, "`.*$", "");
             return eventTypeName + "<" + string.Join(", ", genericArguments.Select(ToGenericAwareTypeName)) + ">";
         }
 

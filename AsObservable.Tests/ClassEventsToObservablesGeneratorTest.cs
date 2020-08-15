@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using NUnit.Framework;
 
 namespace AsObservable.Tests
@@ -10,23 +8,23 @@ namespace AsObservable.Tests
         [Test]
         public void ClassEvents()
         {
-            var generate = TypeToObservablesGenerator.Generate(typeof(SampleClass));
+            var generate = TypeToObservablesGenerator.Generate(typeof(ClassEventsToObservablesGeneratorSampleClass));
             Console.WriteLine(generate);
-            var expected = @"public static class SampleClassObservableExtensions
+            var expected = @"public static class ClassEventsToObservablesGeneratorSampleClassObservableExtensions
 {
-    public static IObservable<EventPattern<EventArgs>> SampleEventAsObservable(this SampleClass @this)
+    public static IObservable<EventPattern<EventArgs>> SampleEventAsObservable(this ClassEventsToObservablesGeneratorSampleClass @this)
     {
         return Observable.FromEventPattern<EventHandler, EventArgs>(
             h => @this.SampleEvent += h, 
             h => @this.SampleEvent -= h);
     }
-    public static IObservable<EventPattern<int>> SampleGenericEventAsObservable(this SampleClass @this)
+    public static IObservable<EventPattern<int>> SampleGenericEventAsObservable(this ClassEventsToObservablesGeneratorSampleClass @this)
     {
         return Observable.FromEventPattern<EventHandler<int>, int>(
             h => @this.SampleGenericEvent += h, 
             h => @this.SampleGenericEvent -= h);
     }
-    public static IObservable<EventPattern<List<int>>> SampleGenericGenericEventAsObservable(this SampleClass @this)
+    public static IObservable<EventPattern<List<int>>> SampleGenericGenericEventAsObservable(this ClassEventsToObservablesGeneratorSampleClass @this)
     {
         return Observable.FromEventPattern<EventHandler<List<int>>, List<int>>(
             h => @this.SampleGenericGenericEvent += h, 
@@ -35,23 +33,13 @@ namespace AsObservable.Tests
     public static IObservable<EventPattern<EventArgs>> StaticEventAsObservable()
     {
         return Observable.FromEventPattern<EventHandler, EventArgs>(
-            h => SampleClass.StaticEvent += h, 
-            h => SampleClass.StaticEvent -= h);
+            h => ClassEventsToObservablesGeneratorSampleClass.StaticEvent += h, 
+            h => ClassEventsToObservablesGeneratorSampleClass.StaticEvent -= h);
     }
 }";
             Assert.AreEqual(expected, generate);
         }
 
-        [UsedImplicitly(ImplicitUseTargetFlags.Members)]
-#pragma warning disable 67
-        private class SampleClass
-        {
-            public event EventHandler SampleEvent;
-            public event EventHandler<int> SampleGenericEvent;
-            public event EventHandler<List<int>> SampleGenericGenericEvent;
-            private event EventHandler PrivateEvent;
-            public static event EventHandler StaticEvent;
-        }
 #pragma warning restore 67
     }
 }
