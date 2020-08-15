@@ -1,7 +1,7 @@
 # AsObservable
 A library to generate extension methods which handle each event as an observable.
 
-![](https://github.com/kyanase/AsObservable/workflows/.NET%20Core/badge.svg)
+![CI](https://github.com/kyanase/AsObservable/workflows/CI/badge.svg)
 
 Original class
 ```csharp
