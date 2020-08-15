@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Authors>Kengo Yanase</Authors>
+		<Product />
+		<Company />
+		<Version>1.0.0</Version>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Description>Generate extension methods to handle each event as an observable.</Description>
+		<RepositoryUrl>https://github.com/kyanase/ObservableGenerators</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/kyanase/ObservableGenerators</PackageProjectUrl>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>
