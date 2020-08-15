@@ -23,18 +23,9 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-    - name: Resharper InspectCode
-      uses: nbadal/inspectcode-action@v1
-      with:
-        # Path to your solution file, ex: MyProject.sln
-        solution: ObservableGenerators.sln
     - name: Archive a nuget package
       uses: actions/upload-artifact@v2
       with:
-        name: ObservableGenerators.nupkg
-        path: ObservableGenerators/bin/Release/*.nupkg
-    - name: Archive a inspction report
-      uses: actions/upload-artifact@v2
-      with:
-        name: inspection-report.xml
-        path: report.xml
+        name: AsObservable.nupkg
+        path: AsObservable/bin/Release/*.nupkg
+
